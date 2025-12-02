@@ -1,7 +1,15 @@
-{ config, pkgs, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  ...
+}:
 {
   system.stateVersion = "25.11";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -15,12 +23,16 @@
 
   networking.hostName = "nix-0";
 
+  nix.settings.trusted-users = [ "@wheel" ];
   users.users.dev = {
     isNormalUser = true;
     initialPassword = "dev";
     description = "dev";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILoGbJn//BJtnXEeNQ9mmHZ8KXcJKmB73VGsQ6PR+M7r"
     ];

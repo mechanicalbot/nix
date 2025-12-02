@@ -69,3 +69,15 @@ nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host>
 ```sh
 nix flake update
 ```
+
+### Update remote host
+
+```sh
+nix run github:serokell/deploy-rs
+```
+
+### Format
+
+```sh
+nix fmt
+```

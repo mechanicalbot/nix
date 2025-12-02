@@ -2,7 +2,10 @@
 
 {
   system.stateVersion = "25.11";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   imports = [
     ./hardware-configuration.nix
@@ -19,8 +22,11 @@
   users.users.dev = {
     isNormalUser = true;
     description = "dev";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILoGbJn//BJtnXEeNQ9mmHZ8KXcJKmB73VGsQ6PR+M7r"
     ];
@@ -36,6 +42,7 @@
 
   environment.shellAliases = {
     switch = "sudo nixos-rebuild switch";
+    deploy = "nix run github:serokell/deploy-rs";
   };
 
   # enable vscode ssh
