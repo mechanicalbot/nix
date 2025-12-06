@@ -27,6 +27,7 @@
     htop
     btop
     gdu
+    duf
   ];
 
   nix.settings.trusted-users = [ "@wheel" ];
