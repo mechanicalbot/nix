@@ -25,6 +25,7 @@
     btop
     gdu
     duf
+    lazydocker
   ];
 
   nix.settings.trusted-users = [ "@wheel" ];
