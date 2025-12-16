@@ -62,12 +62,12 @@
           };
         in
         {
-          interactiveSudo = true;
           remoteBuild = true;
           nodes = {
             dokploy = {
               hostname = "192.168.1.21";
               sshUser = "dev";
+              interactiveSudo = true;
               profiles.system = {
                 user = "root";
                 path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.dokploy;

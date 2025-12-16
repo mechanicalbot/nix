@@ -58,4 +58,14 @@
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
   };
+
+  fileSystems."/mnt/truenas/immich/library" = {
+    device = "192.168.1.30:/mnt/tank/immich/library";
+    fsType = "nfs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.mount-timeout=90"
+    ];
+  };
 }

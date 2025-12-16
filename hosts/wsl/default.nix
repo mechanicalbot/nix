@@ -38,6 +38,7 @@ in
     gdu
     duf
     iperf
+    dig
   ];
 
   environment.shellAliases = {
