@@ -44,6 +44,13 @@
         ];
       };
 
+      nixosConfigurations.lxc = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/lxc
+        ];
+      };
+
       deploy =
         let
           system = "x86_64-linux";
@@ -73,6 +80,14 @@
                 path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.dokploy;
               };
             };
+            # lxc = {
+            #   hostname = "192.168.1.84";
+            #   sshUser = "root";
+            #   profiles.system = {
+            #     user = "root";
+            #     path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.lxc;
+            #   };
+            # };
           };
         };
     };
