@@ -19,7 +19,10 @@
 
   networking.hostName = "dokploy";
   # allow containers running on this host to reach the host itself
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
