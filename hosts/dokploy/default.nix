@@ -34,6 +34,17 @@
   ];
 
   nix.settings.trusted-users = [ "@wheel" ];
+  security.sudo.extraRules = [
+    {
+      users = [ "dev" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
   users.users.dev = {
     isNormalUser = true;
     initialPassword = "dev";
