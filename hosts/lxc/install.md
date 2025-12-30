@@ -4,7 +4,7 @@
 
 ```sh
 CTID=103
-SSH_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILoGbJn//BJtnXEeNQ9mmHZ8KXcJKmB73VGsQ6PR+M7r"
+SSH_KEY="$(curl https://github.com/mechanicalbot.keys)"
 
 pct create $CTID local:vztmpl/nixos-image-lxc-proxmox-25.11pre-git-x86_64-linux.tar.xz \
   --hostname nix-lxc \

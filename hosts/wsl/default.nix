@@ -21,8 +21,11 @@ in
   networking.hostName = "wsl";
 
   users.users.${username} = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILoGbJn//BJtnXEeNQ9mmHZ8KXcJKmB73VGsQ6PR+M7r"
+    openssh.authorizedKeys.keyFiles = [
+      (builtins.fetchurl {
+        url = "https://github.com/mechanicalbot.keys";
+        sha256 = "0gmxlc764vl90hk6v3hfij0m75v6v7ndzgrz6mmpq2inm242jiy7";
+      })
     ];
   };
 
