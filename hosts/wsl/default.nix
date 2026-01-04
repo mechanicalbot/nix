@@ -42,6 +42,8 @@ in
     duf
     iperf
     dig
+    sops
+    age
   ];
 
   environment.shellAliases = {

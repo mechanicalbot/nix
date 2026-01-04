@@ -20,6 +20,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
+    iac-stacks = {
+      url = "git+ssh://git@github.com/mechanicalbot/iac";
+      flake = false;
+    };
   };
 
   outputs =
@@ -36,6 +40,9 @@
 
       nixosConfigurations.dokploy = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           disko.nixosModules.disko
           ./hosts/dokploy
@@ -55,6 +62,9 @@
 
       nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           wsl.nixosModules.default
           ./hosts/wsl
@@ -63,6 +73,9 @@
 
       nixosConfigurations.lxc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           ./hosts/lxc
         ];

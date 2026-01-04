@@ -60,6 +60,22 @@
         "type": "github"
       }
     },
+    "iac-stacks": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767098151,
+        "narHash": "sha256-sdS2fdKy+rHwsaMCnaQxj5UhGdipPW72YjXxCXqKSeA=",
+        "ref": "refs/heads/master",
+        "rev": "0ade9814fccf90137d0557c08f7b3e2b446609be",
+        "revCount": 9,
+        "type": "git",
+        "url": "ssh://git@github.com/mechanicalbot/iac"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/mechanicalbot/iac"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1767480499,
@@ -97,6 +113,7 @@
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "flake-compat": "flake-compat",
+        "iac-stacks": "iac-stacks",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "wsl": "wsl"

@@ -9,8 +9,9 @@
 
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    ./disko.nix
     ../../modules/shared
+    ./disko.nix
+    ./stacks.nix
   ];
 
   boot.loader.grub.enable = true;
