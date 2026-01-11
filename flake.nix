@@ -20,6 +20,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -29,10 +33,19 @@
       disko,
       deploy-rs,
       wsl,
+      home-manager,
       ...
     }:
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
       nixosConfigurations.dokploy = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -50,6 +63,16 @@
         modules = [
           disko.nixosModules.disko
           ./hosts/desktop
+          {
+            nixpkgs.overlays = [
+              (final: _prev: {
+                unstable = import inputs.nixpkgs-unstable {
+                  system = final.system;
+                  config.allowUnfree = true;
+                };
+              })
+            ];
+          }
         ];
       };
 
@@ -58,13 +81,6 @@
         modules = [
           wsl.nixosModules.default
           ./hosts/wsl
-        ];
-      };
-
-      nixosConfigurations.lxc = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/lxc
         ];
       };
 
@@ -96,14 +112,6 @@
                 path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.dokploy;
               };
             };
-            # lxc = {
-            #   hostname = "192.168.1.84";
-            #   sshUser = "root";
-            #   profiles.system = {
-            #     user = "root";
-            #     path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.lxc;
-            #   };
-            # };
           };
         };
     };

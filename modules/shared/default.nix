@@ -13,13 +13,13 @@
     "flakes"
   ];
 
-  nix = {
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      persistent = true;
-      dates = "daily";
-      options = "--delete-older-than 7d";
-    };
+  nix.channel.enable = false;
+
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    persistent = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
   };
 }
