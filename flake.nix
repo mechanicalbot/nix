@@ -47,41 +47,44 @@
     {
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
-      nixosConfigurations.dokploy = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          ./hosts/dokploy
-        ];
-      };
-
-      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
+      nixosConfigurations = {
+        dokploy = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/dokploy
+          ];
         };
-        modules = [
-          disko.nixosModules.disko
-          ./hosts/desktop
-          {
-            nixpkgs.overlays = [
-              (final: _prev: {
-                unstable = import inputs.nixpkgs-unstable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
-        ];
-      };
 
-      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          wsl.nixosModules.default
-          ./hosts/wsl
-        ];
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            disko.nixosModules.disko
+            home-manager.nixosModules.home-manager
+            ./hosts/desktop
+            {
+              nixpkgs.overlays = [
+                (final: _prev: {
+                  unstable = import inputs.nixpkgs-unstable {
+                    system = final.system;
+                    config.allowUnfree = true;
+                  };
+                })
+              ];
+            }
+          ];
+        };
+
+        wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            wsl.nixosModules.default
+            ./hosts/wsl
+          ];
+        };
       };
 
       deploy =

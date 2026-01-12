@@ -1,5 +1,11 @@
 { ... }:
 {
+  imports = [
+    ./gnome.nix
+    ./nvidia.nix
+    ./audio.nix
+  ];
+
   nix.settings.substituters = [
     "https://nix-community.cachix.org"
   ];
