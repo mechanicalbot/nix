@@ -33,6 +33,8 @@ in
     enable = true;
   };
 
+  services.xserver.enable = true;
+
   environment.systemPackages = with pkgs; [
     git
     wget
