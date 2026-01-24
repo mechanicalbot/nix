@@ -56,6 +56,13 @@
           ];
         };
 
+        docker-0 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/docker-0
+          ];
+        };
+
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -105,14 +112,22 @@
           };
         in
         {
-          remoteBuild = true;
           nodes = {
             dokploy = {
+              remoteBuild = true;
               hostname = "192.168.1.21";
               sshUser = "dev";
               profiles.system = {
                 user = "root";
                 path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.dokploy;
+              };
+            };
+            docker-0 = {
+              hostname = "192.168.1.23";
+              sshUser = "root";
+              profiles.system = {
+                user = "root";
+                path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.docker-0;
               };
             };
           };
